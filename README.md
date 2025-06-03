@@ -34,27 +34,32 @@ Each week is based on a 4-hour time budget.
 - `README.md` – This file.
 - `requirements.txt` – Python dependencies.
 - `utils/` – Common utilities like Linear layers, activation functions, loss functions.
-  - `common.py`
+  - `layers` 
+  - `loss`
+  - `activations`
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
-- `transformer/` – Transformer model and training code.
-  - `model.py`
-  - `train.py`
-  - `README.md`
-- `diffusion/` – Diffusion model (forward and reverse process).
-  - `model.py`
-  - `train.py`
-  - `README.md`
-- `cnn/` – Convolutional neural network implementation.
-  - `model.py`
-  - `train.py`
-  - `README.md`
-- `rnn_lstm_gru/` – Sequence models: RNN, LSTM, and GRU.
-  - `model.py`
-  - `train.py`
-  - `README.md`
+- `models/`
+    - `MLP/` - Standard Multilayer perceptrons
+        - `models.py`
+    - `transformer/` – Transformer model and training code.
+        - `model.py`
+        - `train.py`
+        - `README.md`
+    - `diffusion/` – Diffusion model (forward and reverse process).
+        - `model.py`
+        - `train.py`
+        - `README.md`
+    - `cnn/` – Convolutional neural network implementation.
+        - `model.py`
+        - `train.py`
+        - `README.md`
+    - `rnn_lstm_gru/` – Sequence models: RNN, LSTM, and GRU.
+        - `model.py`
+        - `train.py`
+        - `README.md`
 
 ---
 

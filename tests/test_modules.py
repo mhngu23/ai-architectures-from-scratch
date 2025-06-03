@@ -1,5 +1,5 @@
 import numpy as np
-from utils.common import Linear, relu, relu_derivative, mse_loss, mse_loss_grad
+from utils.common import relu
 
 def test_linear_forward(layer=None, x=None):
     out = layer(x)
