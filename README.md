@@ -37,6 +37,8 @@ Each week is based on a 4-hour time budget.
   - `layers` 
   - `loss`
   - `activations`
+    - `Relu`
+    - `Sigmoid`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
