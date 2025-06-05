@@ -1,6 +1,6 @@
 # ai-architectures-from-scratch
 
-A personal collection of core deep learning architectures reimplemented from scratch for study and mastery.  
+A personal collection of core deep learning architectures reimplemented from scratch for revision.  
 Includes Transformers, CNNs, RNNs, Autoencoders, GANs, and Diffusion models.
 
 ---
