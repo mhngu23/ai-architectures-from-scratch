@@ -17,8 +17,8 @@ Each week is based on a 4-hour time budget.
 
 | Week | Topic                          | Goal |
 |------|--------------------------------|------|
-| 1    | Project Setup + Core Utils     | Set up repo, implement `Linear`, `ReLU`, and `MSE` from scratch |
-| 2    | Optimizers & Training Loop     | Add SGD/Adam, build basic training loop |
+| 1    | Project Setup + Core Utils     | Set up repo, implement `Linear`, `ReLU`, and `MSE` from scratch ✔️|
+| 2    | Optimizers & Training Loop     | Add SGD/Adam, build basic training loop ✔️|
 | 3-4  | Transformer (Part 1)           | Implement Scaled Dot-Product Attention, Multi-Head Attention |
 | 5-6  | Transformer (Part 2)           | Complete encoder-decoder model, run toy training |
 | 7-8  | Diffusion Model (Forward)      | Build forward noising process, visualize steps |
@@ -35,14 +35,20 @@ Each week is based on a 4-hour time budget.
 - `requirements.txt` – Python dependencies.
 - `utils/` – Common utilities like Linear layers, activation functions, loss functions.
   - `layers` 
+    - `linear`
   - `loss`
+    - `MSELoss`
   - `activations`
     - `Relu`
-    - `Sigmoid`   
+    - `Sigmoid`
+  - `optimizers`
+    - `Adam`
+    - `SGD`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
+  - `week2_demo.ipynb`
 - `models/`
     - `MLP/` - Standard Multilayer perceptrons
         - `models.py`
