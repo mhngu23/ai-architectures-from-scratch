@@ -30,12 +30,19 @@ class MLP:
                 x = activation(x)
         return x
 
-    def backward(self, grad_output, lr=1e-3):
+    def backward(self, grad_output):
         for layer, activation in reversed(list(zip(self.layers, self.activations))):
             if activation:
                 grad_output = activation.backward(grad_output)
-            grad_output = layer.backward(grad_output, lr)
+            grad_output = layer.backward(grad_output)
         return grad_output
+    
+    def parameters(self):
+        params = []
+        for layer in self.layers:
+            params.append(layer.W)
+            params.append(layer.b)
+        return params
 
     def __call__(self, x):
         return self.forward(x)
