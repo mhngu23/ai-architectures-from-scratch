@@ -38,6 +38,7 @@ Each week is based on a 4-hour time budget.
     - `linear`
   - `loss`
     - `MSELoss`
+    - `BCELoss`
   - `activations`
     - `Relu`
     - `Sigmoid`
