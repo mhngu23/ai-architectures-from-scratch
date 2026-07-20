@@ -50,17 +50,14 @@ Each week is based on a 4-hour time budget.
     - `SGD`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
-  - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks and the Autoencoder
+  - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
   - `week2_demo.ipynb`
   - `diabetes_demo.ipynb` – MLP baseline on the Pima Indians Diabetes dataset
-  - `autoencoder_demo.ipynb` – Autoencoder (reconstruction, latent space, anomaly-style signal) on the same dataset
   - `transformer_demo.ipynb` – encoder-decoder Transformer classifier + attention visualization on the same dataset
 - `models/`
     - `MLP/` - Standard Multilayer perceptrons
-        - `models.py`
-    - `autoencoder/` – Encoder/Decoder built from `Linear` + `ReLU`, trained to reconstruct its own input.
         - `model.py`
     - `transformer/` – Encoder-decoder Transformer, including a `TabularTransformer` adapted for tabular data (feature tokenizer + encoder self-attention + decoder cross-attention readout).
         - `model.py`
