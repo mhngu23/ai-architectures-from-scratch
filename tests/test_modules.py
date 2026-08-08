@@ -1,3 +1,6 @@
+"""Test tối giản cho các hàm NumPy thuần trong `utils/common.py` — không
+liên quan trực tiếp đến Transformer.
+"""
 import numpy as np
 from utils.common import relu
 
@@ -12,4 +15,3 @@ def test_relu(x):
     print("Output:", out)
     assert (out == np.array([[0, 0, 2]])).all()
     print("✅ test_relu passed")
-

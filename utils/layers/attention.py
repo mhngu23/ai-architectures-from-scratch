@@ -1,25 +1,22 @@
+"""Cơ chế Attention — trái tim của kiến trúc Transformer. `ScaledDotProductAttention`
+tính công thức attention gốc; `MultiHeadAttention` bọc thêm các phép chiếu
+Q/K/V/output học được và chia thành nhiều head song song. Được dùng làm
+self-attention (trong Encoder, và masked self-attention trong Decoder) lẫn
+cross-attention (Decoder chú ý sang output của Encoder) xuyên suốt
+EncoderLayer/DecoderLayer trong `models/transformer/model.py`.
+"""
 import numpy as np
 
 from utils.layers.linear import Linear
 
 
 def softmax(x, axis=-1):
-    # Subtract the max for numerical stability; this does not change the
-    # result since softmax is shift-invariant.
     shifted = x - np.max(x, axis=axis, keepdims=True)
     exp = np.exp(shifted)
     return exp / exp.sum(axis=axis, keepdims=True)
 
 
 class ScaledDotProductAttention:
-    """Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k) + mask) V
-
-    Q, K, V are expected as (batch, heads, seq_len, d_k) so this can be
-    called directly by MultiHeadAttention after it splits d_model into heads.
-    `mask` is broadcastable to (batch, heads, seq_len_q, seq_len_k); positions
-    where mask == 0 are blocked (e.g. padding, or causal look-ahead in a
-    decoder self-attention).
-    """
     def __call__(self, Q, K, V, mask=None):
         return self.forward(Q, K, V, mask)
 
@@ -34,19 +31,11 @@ class ScaledDotProductAttention:
         return self.attn_weights @ V
 
     def backward(self, grad_output):
-        """
-        Returns (dQ, dK, dV). Derived via the chain rule through:
-          out = attn @ V
-          attn = softmax(scores)
-          scores = Q K^T / sqrt(d_k)
-        """
         d_k = self.Q.shape[-1]
 
         grad_attn = grad_output @ np.swapaxes(self.V, -1, -2)
         grad_V = np.swapaxes(self.attn_weights, -1, -2) @ grad_output
 
-        # Jacobian-vector product for softmax over the last axis:
-        # dscores_i = attn_i * (dattn_i - sum_j(dattn_j * attn_j))
         sum_term = (grad_attn * self.attn_weights).sum(axis=-1, keepdims=True)
         grad_scores = self.attn_weights * (grad_attn - sum_term)
         grad_scores = grad_scores / np.sqrt(d_k)
@@ -57,17 +46,6 @@ class ScaledDotProductAttention:
 
 
 class MultiHeadAttention:
-    """Standard multi-head attention with learned Q/K/V/output projections.
-
-    Q_in/K_in/V_in are (batch, seq_len, d_model). Internally these are
-    projected then reshaped into (batch, heads, seq_len, d_k) so each head
-    attends independently, then the heads are concatenated and passed
-    through a final output projection back to d_model.
-
-    The per-position projections (W_q/W_k/W_v/W_o) reuse the existing 2D
-    `Linear` layer by flattening the (batch, seq_len) axes into one batch
-    axis before the matmul and restoring the shape afterwards.
-    """
     def __init__(self, d_model, num_heads):
         assert d_model % num_heads == 0, "d_model must be divisible by num_heads"
         self.d_model = d_model
@@ -95,11 +73,11 @@ class MultiHeadAttention:
     def _split_heads(self, x):
         batch, seq_len, _ = x.shape
         x = x.reshape(batch, seq_len, self.num_heads, self.d_k)
-        return x.transpose(0, 2, 1, 3)  # (batch, heads, seq_len, d_k)
+        return x.transpose(0, 2, 1, 3)
 
     def _merge_heads(self, x):
         batch, heads, seq_len, d_k = x.shape
-        x = x.transpose(0, 2, 1, 3)  # (batch, seq_len, heads, d_k)
+        x = x.transpose(0, 2, 1, 3)
         return x.reshape(batch, seq_len, heads * d_k)
 
     def forward(self, Q_in, K_in, V_in, mask=None):
@@ -115,7 +93,6 @@ class MultiHeadAttention:
         return self._project(self.W_o, context)
 
     def backward(self, grad_output):
-        """Returns (dQ_in, dK_in, dV_in)."""
         grad_context = self._project_backward(self.W_o, grad_output, self.batch, self.seq_q)
         grad_context = self._split_heads(grad_context)
 
