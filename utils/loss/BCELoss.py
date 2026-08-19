@@ -1,10 +1,15 @@
+"""Binary Cross-Entropy Loss — loss function used to train
+`TabularTransformer`/`TextClassifierTransformer` (and MLP) for binary
+classification: compares the predicted probability (Sigmoid's output)
+against the true 0/1 label.
+"""
 import numpy as np
 
 class BCELoss:
     def __call__(self, pred, target):
         self.pred = pred
         self.target = target
-        eps = 1e-8  # to avoid log(0)
+        eps = 1e-8
         return -np.mean(target * np.log(pred + eps) + (1 - target) * np.log(1 - pred + eps))
 
     def backward(self):

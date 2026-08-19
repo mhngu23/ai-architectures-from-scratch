@@ -19,8 +19,8 @@ Each week is based on a 4-hour time budget.
 |------|--------------------------------|------|
 | 1    | Project Setup + Core Utils     | Set up repo, implement `Linear`, `ReLU`, and `MSE` from scratch ✔️|
 | 2    | Optimizers & Training Loop     | Add SGD/Adam, build basic training loop ✔️|
-| 3-4  | Transformer (Part 1)           | Implement Scaled Dot-Product Attention, Multi-Head Attention |
-| 5-6  | Transformer (Part 2)           | Complete encoder-decoder model, run toy training |
+| 3-4  | Transformer (Part 1)           | Implement Scaled Dot-Product Attention, Multi-Head Attention ✔️|
+| 5-6  | Transformer (Part 2)           | Complete encoder-decoder model, run toy training ✔️|
 | 7-8  | Diffusion Model (Forward)      | Build forward noising process, visualize steps |
 | 9-10 | Diffusion Model (Reverse)      | Train denoiser, reconstruct images |
 | 11   | CNNs                           | Implement and train simple CNN for image classification |
@@ -34,29 +34,39 @@ Each week is based on a 4-hour time budget.
 - `README.md` – This file.
 - `requirements.txt` – Python dependencies.
 - `utils/` – Common utilities like Linear layers, activation functions, loss functions.
-  - `layers` 
+  - `layers`
     - `linear`
+    - `layernorm` – LayerNorm (used by the Transformer)
+    - `attention` – ScaledDotProductAttention, MultiHeadAttention
+    - `feedforward` – PositionwiseFeedForward
+    - `embedding` – TokenEmbedding, PositionalEncoding
+    - `dropout` – Dropout (regularization; wired into `Encoder`/`Decoder` and all 3 Transformer models, `.train()`/`.eval()` to toggle)
   - `loss`
     - `MSELoss`
     - `BCELoss`
+    - `CrossEntropyLoss` – multi-class classification (e.g. next-token prediction in `Seq2SeqTransformer`)
   - `activations`
     - `Relu`
     - `Sigmoid`
+    - `Softmax` – paired with `CrossEntropyLoss`
   - `optimizers`
     - `Adam`
     - `SGD`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
+  - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks (incl. `Dropout`) + Dropout train/eval-mode and `generate()` auto-eval checks
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
   - `week2_demo.ipynb`
+  - `week3_demo.ipynb` – MLP baseline on the Pima Indians Diabetes dataset
+  - `week4_demo.ipynb` – `FeatureTokenizer` gradient check + `TextClassifierTransformer` toy sentiment classification demo
+  - `week5_demo.ipynb` – `Seq2SeqTransformer` toy English -> "unaccented Vietnamese" machine translation demo (teacher forcing, `CrossEntropyLoss`, autoregressive `generate`)
+  - `week6_demo.ipynb` – `Seq2SeqTransformer` on the real IWSLT'15 English-Vietnamese corpus (mini-batch training loop, real held-out test sentences)
 - `models/`
     - `MLP/` - Standard Multilayer perceptrons
-        - `models.py`
-    - `transformer/` – Transformer model and training code.
         - `model.py`
-        - `train.py`
-        - `README.md`
+    - `transformer/` – Encoder-decoder Transformer, including a `TabularTransformer` adapted for tabular data (feature tokenizer + encoder self-attention + decoder cross-attention readout), a `TextClassifierTransformer` for text classification, and a `Seq2SeqTransformer` for machine translation (decoder cross-attends the full source sequence + autoregressive `generate` for greedy decoding).
+        - `model.py`
     - `diffusion/` – Diffusion model (forward and reverse process).
         - `model.py`
         - `train.py`
