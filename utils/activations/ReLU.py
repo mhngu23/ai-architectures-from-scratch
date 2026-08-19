@@ -1,6 +1,6 @@
-"""ReLU activation: f(x) = max(0, x). Dùng làm phi tuyến tính ở giữa 2 lớp
-Linear trong `PositionwiseFeedForward` của mỗi Encoder/DecoderLayer trong
-Transformer, cũng như trong MLP/Autoencoder ở các phần khác của repo.
+"""ReLU activation: f(x) = max(0, x). Used as the non-linearity between the
+2 Linear layers in `PositionwiseFeedForward` of every Encoder/DecoderLayer
+in the Transformer, as well as in MLP/Autoencoder elsewhere in the repo.
 """
 import numpy as np
 

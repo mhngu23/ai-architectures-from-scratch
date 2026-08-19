@@ -1,5 +1,5 @@
-"""Test tối giản cho các hàm NumPy thuần trong `utils/common.py` — không
-liên quan trực tiếp đến Transformer.
+"""Minimal tests for the plain NumPy functions in `utils/common.py` — not
+directly related to the Transformer.
 """
 import numpy as np
 from utils.common import relu

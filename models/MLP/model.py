@@ -1,7 +1,7 @@
-"""MLP (Multi-Layer Perceptron) đơn giản — model baseline KHÔNG thuộc
-Transformer, dùng để so sánh accuracy với `TabularTransformer`/
-`TextClassifierTransformer` trên cùng dữ liệu (xem `notebooks/diabetes_demo.ipynb`
-và `notebooks/transformer_demo.ipynb`).
+"""Simple MLP (Multi-Layer Perceptron) — a baseline model that is NOT part
+of the Transformer, used to compare accuracy against
+`TabularTransformer`/`TextClassifierTransformer` on the same data (see
+`notebooks/week3_demo.ipynb` and `notebooks/week4_demo.ipynb`).
 """
 import numpy as np
 

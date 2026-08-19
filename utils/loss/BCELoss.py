@@ -1,7 +1,7 @@
-"""Binary Cross-Entropy Loss — hàm loss dùng để huấn luyện
-`TabularTransformer`/`TextClassifierTransformer` (và MLP) cho bài toán
-phân loại nhị phân: so sánh xác suất dự đoán (đầu ra của Sigmoid) với
-nhãn 0/1 thật.
+"""Binary Cross-Entropy Loss — loss function used to train
+`TabularTransformer`/`TextClassifierTransformer` (and MLP) for binary
+classification: compares the predicted probability (Sigmoid's output)
+against the true 0/1 label.
 """
 import numpy as np
 

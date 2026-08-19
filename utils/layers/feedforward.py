@@ -1,7 +1,8 @@
-"""PositionwiseFeedForward — sublayer Linear->ReLU->Linear áp dụng độc lập
-tại từng vị trí trong chuỗi. Đây là nhánh thứ hai (sau attention) của mỗi
-EncoderLayer/DecoderLayer trong Transformer, đóng vai trò xử lý riêng từng
-token sau khi attention đã trộn thông tin giữa các vị trí.
+"""PositionwiseFeedForward — a Linear->ReLU->Linear sublayer applied
+independently at each position in the sequence. This is the second branch
+(after attention) of every EncoderLayer/DecoderLayer in the Transformer,
+processing each token individually after attention has already mixed
+information across positions.
 """
 from utils.layers.linear import Linear
 from utils.activations.ReLU import ReLU

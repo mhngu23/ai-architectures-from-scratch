@@ -1,9 +1,10 @@
-"""Cơ chế Attention — trái tim của kiến trúc Transformer. `ScaledDotProductAttention`
-tính công thức attention gốc; `MultiHeadAttention` bọc thêm các phép chiếu
-Q/K/V/output học được và chia thành nhiều head song song. Được dùng làm
-self-attention (trong Encoder, và masked self-attention trong Decoder) lẫn
-cross-attention (Decoder chú ý sang output của Encoder) xuyên suốt
-EncoderLayer/DecoderLayer trong `models/transformer/model.py`.
+"""Attention mechanism — the heart of the Transformer architecture.
+`ScaledDotProductAttention` computes the original attention formula;
+`MultiHeadAttention` wraps it with learned Q/K/V/output projections split
+across multiple parallel heads. Used both as self-attention (in the
+Encoder, and masked self-attention in the Decoder) and cross-attention
+(Decoder attending to the Encoder's output) throughout
+EncoderLayer/DecoderLayer in `models/transformer/model.py`.
 """
 import numpy as np
 

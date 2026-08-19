@@ -1,7 +1,7 @@
-"""Tanh activation: f(x) = tanh(x), giá trị trong (-1, 1). Không được dùng
-trực tiếp trong Transformer ở repo này (Transformer dùng ReLU cho FFN và
-Sigmoid cho head phân loại) — có sẵn như một activation tổng quát cho các
-model khác (vd MLP) trong repo.
+"""Tanh activation: f(x) = tanh(x), values in (-1, 1). Not used directly by
+the Transformer in this repo (the Transformer uses ReLU for the FFN and
+Sigmoid for the classification head) — available as a general-purpose
+activation for other models (e.g. MLP) in the repo.
 """
 import numpy as np
 

@@ -1,6 +1,7 @@
-"""Sigmoid activation: f(x) = 1 / (1 + exp(-x)). Là lớp cuối cùng của
-`TabularTransformer`/`TextClassifierTransformer` (biến logit thành xác
-suất) trước khi tính `BCELoss` — dùng cho bài toán phân loại nhị phân.
+"""Sigmoid activation: f(x) = 1 / (1 + exp(-x)). The final layer of
+`TabularTransformer`/`TextClassifierTransformer` (turns logits into
+probabilities) before computing `BCELoss` — used for binary
+classification.
 """
 import numpy as np
 

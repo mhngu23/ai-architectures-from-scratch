@@ -1,9 +1,10 @@
-"""Linear (fully-connected) layer + Parameter wrapper — khối xây dựng cơ
-bản nhất trong toàn bộ repo. Mọi phép chiếu trong Transformer đều dùng lại
-class này: chiếu Q/K/V/output trong MultiHeadAttention, 2 lớp trong
-PositionwiseFeedForward, chiếu từng cột trong FeatureTokenizer, chiếu
-logit cuối cùng trong TabularTransformer/TextClassifierTransformer — cũng
-như trong MLP và Autoencoder ở các phần khác của repo.
+"""Linear (fully-connected) layer + Parameter wrapper — the most basic
+building block in the whole repo. Every projection in the Transformer
+reuses this class: Q/K/V/output projections in MultiHeadAttention, the
+2 layers of PositionwiseFeedForward, per-column projection in
+FeatureTokenizer, the final logit projection in
+TabularTransformer/TextClassifierTransformer/Seq2SeqTransformer — as
+well as in MLP and Autoencoder elsewhere in the repo.
 """
 import numpy as np
 

@@ -1,6 +1,6 @@
-"""SGD (with momentum) optimizer — lựa chọn thay thế cho `Adam` để huấn
-luyện các model trong repo, bao gồm cả Transformer, qua cùng giao diện
-`step()`/`zero_grad()` trên `model.parameters()`.
+"""SGD (with momentum) optimizer — an alternative to `Adam` for training
+the models in this repo, including the Transformer, through the same
+`step()`/`zero_grad()` interface over `model.parameters()`.
 """
 import math
 

@@ -1,7 +1,8 @@
-"""Adam optimizer — thuật toán cập nhật trọng số dùng để huấn luyện mọi
-model trong repo, bao gồm `TabularTransformer`/`TextClassifierTransformer`
-(xem các notebook demo trong `notebooks/`), bằng cách duyệt qua
-`model.parameters()` và cập nhật `.data` của từng `Parameter` dựa trên `.grad`.
+"""Adam optimizer — the weight-update algorithm used to train every model
+in the repo, including `TabularTransformer`/`TextClassifierTransformer`/
+`Seq2SeqTransformer` (see the demo notebooks in `notebooks/`), by
+iterating over `model.parameters()` and updating each `Parameter`'s
+`.data` based on its `.grad`.
 """
 import math
 import numpy as np

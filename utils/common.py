@@ -1,7 +1,8 @@
-"""Vài hàm NumPy thuần (không phải class layer) cho ReLU/MSE — bản viết
-đơn giản ban đầu từ Week 1, chỉ còn dùng trong `tests/test_modules.py`.
-Không liên quan trực tiếp đến Transformer; các phiên bản dùng thật trong
-model là các class ở `utils/activations/` và `utils/loss/`.
+"""A few plain NumPy functions (not layer classes) for ReLU/MSE — the
+original simple implementation from Week 1, only still used in
+`tests/test_modules.py`. Not directly related to the Transformer; the
+versions actually used by the models are the classes in
+`utils/activations/` and `utils/loss/`.
 """
 import numpy as np
 

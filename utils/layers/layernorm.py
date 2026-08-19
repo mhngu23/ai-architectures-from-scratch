@@ -1,7 +1,7 @@
-"""LayerNorm — chuẩn hoá vector đặc trưng của từng token theo trục cuối.
-Được dùng sau MỖI residual connection trong EncoderLayer/DecoderLayer
-(post-norm: LayerNorm(x + Sublayer(x))) để ổn định phân phối giá trị giữa
-các sublayer của Transformer.
+"""LayerNorm — normalizes each token's feature vector along the last axis.
+Used after EVERY residual connection in EncoderLayer/DecoderLayer
+(post-norm: LayerNorm(x + Sublayer(x))) to stabilize the value
+distribution between sublayers of the Transformer.
 """
 import numpy as np
 

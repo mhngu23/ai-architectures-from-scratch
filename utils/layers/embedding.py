@@ -1,8 +1,9 @@
-"""Tầng tokenize cho dữ liệu TEXT dùng trong `TextClassifierTransformer`.
-`TokenEmbedding` tra bảng embedding theo chỉ số từ (thay cho `FeatureTokenizer`
-vốn chỉ dùng cho dữ liệu bảng số); `PositionalEncoding` cộng thêm thông tin
-thứ tự từ (sin/cos cố định) vì attention tự nó không phân biệt vị trí, và
-thứ tự từ trong câu mang ý nghĩa ngữ nghĩa — khác với thứ tự cột trong bảng số.
+"""Tokenizing layer for TEXT data, used by `TextClassifierTransformer` and
+`Seq2SeqTransformer`. `TokenEmbedding` looks up an embedding table by word
+index (unlike `FeatureTokenizer`, which is only for tabular numeric data);
+`PositionalEncoding` adds fixed sin/cos position information, since
+attention by itself is position-agnostic and word order in a sentence
+carries semantic meaning — unlike column order in tabular data.
 """
 import numpy as np
 

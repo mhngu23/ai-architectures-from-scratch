@@ -39,27 +39,33 @@ Each week is based on a 4-hour time budget.
     - `layernorm` – LayerNorm (used by the Transformer)
     - `attention` – ScaledDotProductAttention, MultiHeadAttention
     - `feedforward` – PositionwiseFeedForward
+    - `embedding` – TokenEmbedding, PositionalEncoding
+    - `dropout` – Dropout (regularization; wired into `Encoder`/`Decoder` and all 3 Transformer models, `.train()`/`.eval()` to toggle)
   - `loss`
     - `MSELoss`
     - `BCELoss`
+    - `CrossEntropyLoss` – multi-class classification (e.g. next-token prediction in `Seq2SeqTransformer`)
   - `activations`
     - `Relu`
     - `Sigmoid`
+    - `Softmax` – paired with `CrossEntropyLoss`
   - `optimizers`
     - `Adam`
     - `SGD`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
-  - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks
+  - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks (incl. `Dropout`) + Dropout train/eval-mode and `generate()` auto-eval checks
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
   - `week2_demo.ipynb`
-  - `diabetes_demo.ipynb` – MLP baseline on the Pima Indians Diabetes dataset
-  - `transformer_demo.ipynb` – encoder-decoder Transformer classifier + attention visualization on the same dataset
+  - `week3_demo.ipynb` – MLP baseline on the Pima Indians Diabetes dataset
+  - `week4_demo.ipynb` – `FeatureTokenizer` gradient check + `TextClassifierTransformer` toy sentiment classification demo
+  - `week5_demo.ipynb` – `Seq2SeqTransformer` toy English -> "unaccented Vietnamese" machine translation demo (teacher forcing, `CrossEntropyLoss`, autoregressive `generate`)
+  - `week6_demo.ipynb` – `Seq2SeqTransformer` on the real IWSLT'15 English-Vietnamese corpus (mini-batch training loop, real held-out test sentences)
 - `models/`
     - `MLP/` - Standard Multilayer perceptrons
         - `model.py`
-    - `transformer/` – Encoder-decoder Transformer, including a `TabularTransformer` adapted for tabular data (feature tokenizer + encoder self-attention + decoder cross-attention readout).
+    - `transformer/` – Encoder-decoder Transformer, including a `TabularTransformer` adapted for tabular data (feature tokenizer + encoder self-attention + decoder cross-attention readout), a `TextClassifierTransformer` for text classification, and a `Seq2SeqTransformer` for machine translation (decoder cross-attends the full source sequence + autoregressive `generate` for greedy decoding).
         - `model.py`
     - `diffusion/` – Diffusion model (forward and reverse process).
         - `model.py`
