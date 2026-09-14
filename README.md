@@ -21,8 +21,8 @@ Each week is based on a 4-hour time budget.
 | 2    | Optimizers & Training Loop     | Add SGD/Adam, build basic training loop ✔️|
 | 3-4  | Transformer (Part 1)           | Implement Scaled Dot-Product Attention, Multi-Head Attention ✔️|
 | 5-6  | Transformer (Part 2)           | Complete encoder-decoder model, run toy training ✔️|
-| 7-8  | Diffusion Model (Forward)      | Build forward noising process, visualize steps |
-| 9-10 | Diffusion Model (Reverse)      | Train denoiser, reconstruct images |
+| 7-8  | Diffusion Model (Forward)      | Build forward noising process, visualize steps ✔️|
+| 9-10 | Diffusion Model (Reverse)      | Train denoiser, reconstruct images ✔️|
 | 11   | CNNs                           | Implement and train simple CNN for image classification |
 | 12   | RNN / LSTM / GRU               | Build and test sequence models on toy tasks |
 | 13+  | Autoencoders, GANs, ViT, etc.  | Expand to unsupervised and generative models |
@@ -33,6 +33,8 @@ Each week is based on a 4-hour time budget.
 
 - `README.md` – This file.
 - `requirements.txt` – Python dependencies.
+- `data/` – Toy datasets, decoupled from any one model so they can be reused across notebooks/scripts.
+  - `toy_datasets.py` – `make_two_moons`, `make_swiss_roll_2d`, `make_gaussian_mixture`, `make_checkerboard` (all `(N, 2)`, mean ~0 / std ~1) + a `TOY_DATASETS` name -> generator dict, used by the diffusion model (`models/diffusion/train.py`, `notebooks/week7_demo.ipynb`).
 - `utils/` – Common utilities like Linear layers, activation functions, loss functions.
   - `layers`
     - `linear`
@@ -41,20 +43,23 @@ Each week is based on a 4-hour time budget.
     - `feedforward` – PositionwiseFeedForward
     - `embedding` – TokenEmbedding, PositionalEncoding
     - `dropout` – Dropout (regularization; wired into `Encoder`/`Decoder` and all 3 Transformer models, `.train()`/`.eval()` to toggle)
+    - `time_embedding` – `sinusoidal_time_embedding`, conditions `DenoiserMLP` (diffusion) on the timestep t
   - `loss`
-    - `MSELoss`
+    - `MSELoss` – also the training objective (`L_simple`) for the diffusion model
     - `BCELoss`
     - `CrossEntropyLoss` – multi-class classification (e.g. next-token prediction in `Seq2SeqTransformer`)
   - `activations`
     - `Relu`
     - `Sigmoid`
     - `Softmax` – paired with `CrossEntropyLoss`
+    - `SiLU` – used inside `DenoiserMLP` (diffusion)
   - `optimizers`
     - `Adam`
     - `SGD`   
 - `tests/` – Simple unit tests for core components.
   - `test_modules.py`
   - `test_transformer_modules.py` – numerical gradient checks for the encoder/decoder building blocks (incl. `Dropout`) + Dropout train/eval-mode and `generate()` auto-eval checks
+  - `test_diffusion_modules.py` – numerical gradient check for `DenoiserMLP`, `DiffusionSchedule` sanity checks, and forward/reverse process shape checks
 - `notebooks/` – Jupyter notebooks for visualization and exploration.
   - `week1_demo.ipynb`
   - `week2_demo.ipynb`
@@ -62,6 +67,7 @@ Each week is based on a 4-hour time budget.
   - `week4_demo.ipynb` – `FeatureTokenizer` gradient check + `TextClassifierTransformer` toy sentiment classification demo
   - `week5_demo.ipynb` – `Seq2SeqTransformer` toy English -> "unaccented Vietnamese" machine translation demo (teacher forcing, `CrossEntropyLoss`, autoregressive `generate`)
   - `week6_demo.ipynb` – `Seq2SeqTransformer` on the real IWSLT'15 English-Vietnamese corpus (mini-batch training loop, real held-out test sentences)
+  - `week7_demo.ipynb` – `DDPM`: (1) on toy 2D "two moons" data - forward noising process visualized step by step, training curve, and reverse-process sampling from pure noise (real-vs-generated comparison + denoising trajectory); (2) across all 4 `data/toy_datasets.py` shapes - joint/shuffled training (all shapes pooled into every minibatch) vs. sequential/continual training (one shape at a time, shuffled curriculum order, same model+optimizer carried across phases), visualizing and numerically scoring (nearest-neighbor coverage) how the sequential model **catastrophically forgets** earlier shapes once training moves on, in contrast to the joint model which keeps covering all 4
 - `models/`
     - `MLP/` - Standard Multilayer perceptrons
         - `model.py`
